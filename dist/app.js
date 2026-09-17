@@ -25,9 +25,13 @@ const startScreen = document.querySelector('#startScreen');
 const gameScreen = document.querySelector('#gameScreen');
 const resultScreen = document.querySelector('#resultScreen');
 const optionsEl = document.querySelector('#options');
+const confirmPanel = document.querySelector('#confirmPanel');
+const pendingChoiceEl = document.querySelector('#pendingChoice');
+const confirmButton = document.querySelector('#confirmButton');
 const reflectionEl = document.querySelector('#reflection');
 const nextButton = document.querySelector('#nextButton');
 const resumeButton = document.querySelector('#resumeButton');
+let pendingAnswer = null;
 
 function loadState() {
   try {
@@ -57,6 +61,7 @@ function begin(resume = false) {
 function renderQuestion() {
   const q = questions[state.index];
   const answered = state.answers[state.index];
+  pendingAnswer = null;
   document.querySelector('#chapterLabel').textContent = q.chapter;
   document.querySelector('#progressText').textContent = `${state.index + 1} / ${questions.length}`;
   document.querySelector('#progressBar').style.width = `${((state.index + 1) / questions.length) * 100}%`;
@@ -69,10 +74,11 @@ function renderQuestion() {
   badge.textContent = q.type === 'direct' ? '直接质询' : q.statusLabel;
   document.querySelector('#questionKind').textContent = q.type === 'direct' ? '不带故事的原则问题' : '具体情境';
   optionsEl.innerHTML = q.options.map((option, index) => `
-    <button class="option${answered === index ? ' selected' : ''}" data-index="${index}" ${answered !== undefined ? 'disabled' : ''}>
+    <button class="option${answered === index ? ' selected' : ''}" data-index="${index}" aria-pressed="${answered === index}" ${answered !== undefined ? 'disabled' : ''}>
       <span class="option-key">${String.fromCharCode(65 + index)}</span>
       <span>${option[1]}</span>
     </button>`).join('');
+  confirmPanel.hidden = true;
   if (answered !== undefined) showReflection(q.options[answered][0]);
   else {
     reflectionEl.hidden = true;
@@ -92,13 +98,28 @@ function showReflection(dimension) {
 
 function choose(index) {
   if (state.answers[state.index] !== undefined) return;
-  state.answers[state.index] = index;
+  pendingAnswer = index;
+  [...optionsEl.children].forEach((item, i) => {
+    item.classList.toggle('selected', i === index);
+    item.setAttribute('aria-pressed', String(i === index));
+  });
+  const optionText = questions[state.index].options[index][1];
+  pendingChoiceEl.textContent = `${String.fromCharCode(65 + index)}．${optionText}`;
+  confirmPanel.hidden = false;
+}
+
+function confirmChoice() {
+  if (pendingAnswer === null || state.answers[state.index] !== undefined) return;
+  const confirmedAnswer = pendingAnswer;
+  state.answers[state.index] = confirmedAnswer;
   saveState();
   [...optionsEl.children].forEach((item, i) => {
     item.disabled = true;
-    item.classList.toggle('selected', i === index);
+    item.classList.toggle('selected', i === confirmedAnswer);
+    item.setAttribute('aria-pressed', String(i === confirmedAnswer));
   });
-  showReflection(questions[state.index].options[index][0]);
+  confirmPanel.hidden = true;
+  showReflection(questions[state.index].options[confirmedAnswer][0]);
   nextButton.focus();
 }
 
@@ -270,6 +291,7 @@ optionsEl.addEventListener('click', (event) => {
   const button = event.target.closest('.option');
   if (button) choose(Number(button.dataset.index));
 });
+confirmButton.addEventListener('click', confirmChoice);
 nextButton.addEventListener('click', () => {
   if (state.answers[state.index] === undefined) return;
   if (state.index >= questions.length - 1) renderResults();
@@ -289,3 +311,4 @@ if (state.answers.length) {
   resumeButton.hidden = false;
   resumeButton.textContent = state.completed ? '查看上次结果' : `继续上次进度 ${Math.min(state.answers.length + 1, questions.length)}/${questions.length}`;
 }
+

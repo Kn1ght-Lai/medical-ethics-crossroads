@@ -56,6 +56,14 @@
         <p class="scenario" id="questionScenario">夜班还没开始，重症监护室只剩一个床位。两位患者几乎同时到达，而医院刚启用的预测系统给出了不同的生存概率。</p>
         <p class="prompt" id="questionPrompt">你认为此刻最应该先做什么？</p>
         <div class="options" id="options"></div>
+        <div class="choice-confirm" id="confirmPanel" hidden aria-live="polite">
+          <div>
+            <strong>确认这项选择？</strong>
+            <p id="pendingChoice"></p>
+            <small>确认前，你仍可以点击其他选项修改。</small>
+          </div>
+          <button class="primary-button confirm-button" id="confirmButton">确认选择</button>
+        </div>
         <div class="reflection" id="reflection" hidden aria-live="polite"></div>
         <button class="primary-button next-button" id="nextButton" hidden>继续 <span aria-hidden="true">→</span></button>
       </article>
@@ -69,3 +77,4 @@
   <script src="app.js"></script>
 </body>
 </html>
+
