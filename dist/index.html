@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102d3d">
+  <meta name="description" content="一场没有标准答案的医学伦理互动章节：在具体的人与抽象的原则之间，看见自己的选择方式。">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23102d3d'/%3E%3Cpath d='M32 11v42M17 21h30M22 21l-9 18h18l-9-18zm20 0-9 18h18l-9-18z' fill='none' stroke='%23f2b84b' stroke-width='4' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+  <title>临界处方 · 医学伦理互动章节</title>
+</head>
+<body>
+  <div class="ambient ambient-a"></div>
+  <div class="ambient ambient-b"></div>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="返回开始页">
+      <span class="brand-mark" aria-hidden="true">◇</span>
+      <span>临界处方</span>
+    </a>
+    <button class="quiet-button" id="resumeButton" hidden>继续上次进度</button>
+  </header>
+
+  <main id="app" tabindex="-1">
+    <section class="start-screen" id="startScreen">
+      <div class="eyebrow">互动章节 · 约 8–12 分钟</div>
+      <h1>当规则遇见一个<br><em>具体的人</em></h1>
+      <p class="intro">20 次选择，不找“正确答案”。你会得到两张画像：你通常先保护什么；面对同一个问题时，具体故事会不会让你改用另一种判断方法。</p>
+      <div class="start-grid">
+        <div class="start-card">
+          <span class="card-index">01</span>
+          <strong>伦理立场画像</strong>
+          <p>自主、规则、福祉、关怀四个维度。</p>
+        </div>
+        <div class="start-card">
+          <span class="card-index">02</span>
+          <strong>情境影响画像</strong>
+          <p>把具体故事的选择，和不带故事的原则问题放在一起比较。</p>
+        </div>
+      </div>
+      <div class="notice" role="note">
+        <span aria-hidden="true">i</span>
+        <p>本游戏用于伦理反思，不提供医疗或法律建议。真实案例、真实改编与虚构故事会在题目及结算页明确标注。</p>
+      </div>
+      <button class="primary-button" id="startButton">进入第一章 <span aria-hidden="true">→</span></button>
+    </section>
+
+    <section class="game-screen" id="gameScreen" hidden>
+      <div class="progress-row">
+        <span id="chapterLabel">第一章 · 边界</span>
+        <span id="progressText">1 / 20</span>
+      </div>
+      <div class="progress-track" aria-hidden="true"><div id="progressBar"></div></div>
+      <article class="question-card">
+        <div class="case-meta"><span class="case-badge fictional">虚构案例</span><span id="questionKind">情境选择</span></div>
+        <h2 id="questionTitle">最后一张床位</h2>
+        <p class="scenario" id="questionScenario">夜班还没开始，重症监护室只剩一个床位。两位患者几乎同时到达，而医院刚启用的预测系统给出了不同的生存概率。</p>
+        <p class="prompt" id="questionPrompt">你认为此刻最应该先做什么？</p>
+        <div class="options" id="options"></div>
+        <div class="reflection" id="reflection" hidden aria-live="polite"></div>
+        <button class="primary-button next-button" id="nextButton" hidden>继续 <span aria-hidden="true">→</span></button>
+      </article>
+    </section>
+
+    <section class="result-screen" id="resultScreen" hidden>
+      <div id="resultContent"></div>
+    </section>
+  </main>
+  <script src="questions.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
