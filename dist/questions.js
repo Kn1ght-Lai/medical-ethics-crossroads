@@ -79,7 +79,7 @@ window.ETHICS_QUESTIONS = [
     ]
   },
   {
-    chapter: '第三章 · 被欠下的同意', type: 'scenario', status: 'real', statusLabel: '真实历史',
+    chapter: '第三章 · 被欠下的同意', type: 'scenario', status: 'real', statusLabel: '真实历史中的教学设问',
     title: '身在制度之内',
     scenario: '时间来到1960年代。设想你是后来加入项目的年轻医务人员。你查阅记录后发现：这项研究从1932年就已开始，参加者一直以为自己在接受“坏血”治疗，实际上研究人员是在观察未经治疗的梅毒；青霉素成为首选疗法已经十多年，却一直没有提供给患病的参加者。上级说研究已经运行多年，现在停止会毁掉数据，也会得罪机构。',
     prompt: '你最先应该承担什么责任？',
