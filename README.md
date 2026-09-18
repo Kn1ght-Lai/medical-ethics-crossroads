@@ -1,34 +1,22 @@
-# 白袍之间
+# 临界处方 · 医学伦理互动章节
 
-一个中文医学伦理抉择游戏。玩家会处理三份独立会诊单，在有限信息中练习资源分配、青少年保密与研究知情同意。
+一个约 8–12 分钟完成的中文医学伦理互动游戏。20 道四选一题没有标准答案，结算时生成两张画像：
 
-## 游戏机制
+- **伦理立场画像**：自主、规则、福祉、关怀四个维度。
+- **情境影响画像**：比较 8 组伦理实质相同的“具体故事—直接质询”，观察玩家的判断方法会不会随表达方式改变。
 
-- 每案 4 次抉择；选择后必须再次确认，避免触屏误操作。
-- 答错会显示针对该选项的解释，并允许重新判断。
-- 首次独立答对计 100 分，纠错后计 60 分，查看提示后计 30 分。
-- 本机保存个人成绩；玩家可以自愿把一轮成绩、星级与建议带到 GitHub Issue 草稿页，核对后亲自发布。
-- GitHub Actions 读取公开 Issues，重新校验逐题计分，并生成 `community.json` 供游戏展示排行榜与评论。
+## 案例透明度
 
-## 社区数据与隐私
+12 道情境题包括 6 道基于真实史实、2 道真实案例改编、4 道虚构案例。游戏内及结算页均明确标注，并提供 CDC、NIH、WHO 与英国司法机构的一手资料链接。文本用于伦理教育与反思，不构成医疗或法律建议。
 
-游戏不会代玩家发布 Issue，也不读取或保存 GitHub 登录凭据。公开投稿会显示 GitHub 账号、玩家填写的昵称、成绩或留言及来源链接。关闭自己的 Issue 后，该记录会在下一次同步时从榜单和留言中撤回。
+## 试玩与反馈
 
-成绩是玩家自报学习记录，不用于正式考核。请勿在 Issues 中提交真实患者资料、联系方式或其他敏感信息。
+完成后可以填写昵称、评分、评论和建议。网页只在浏览器本机生成 GitHub Issue 草稿，玩家仍需登录 GitHub、检查内容并主动发布。进度只保存在当前浏览器。
 
-## 本地运行与验证
+## 本地运行
 
-直接打开 `dist/index.html` 即可游玩。社区解析测试：
+静态文件位于 `dist/`。使用任意静态服务器打开即可；直接打开 `dist/index.html` 也能游玩主要流程。
 
-```sh
-node --test community/community.test.mjs
-```
+## 发布
 
-## 参考
-
-- [GitHub Pages 发布源](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)
-- [通过 URL 预填 GitHub Issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/creating-an-issue)
-- [GitHub Actions 的 Issues 事件](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows)
-- [GITHUB_TOKEN 权限](https://docs.github.com/en/actions/tutorials/authenticate-with-github_token)
-
-本项目用于伦理讨论教学，不提供个案医疗或法律意见。
+仓库包含 GitHub Pages 工作流，推送到 `main` 后会将 `dist/` 发布为静态站点。
